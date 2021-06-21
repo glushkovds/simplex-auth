@@ -1,0 +1,37 @@
+{
+  "name": "glushkovds/simplex-auth",
+  "description": "Auth component for Simplex CMS",
+  "keywords": [
+    "php",
+    "simplex-core",
+    "simplex-auth",
+    "simplex-cms"
+  ],
+  "homepage": "https://github.com/glushkovds/simplex-auth",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Denis Glushkov",
+      "email": "amkarovec@gmail.com",
+      "homepage": "https://github.com/glushkovds"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.0",
+    "ext-gd": "*",
+    "ext-pdo": "*",
+    "ext-json": "*",
+    "glushkovds/simplex-core": "dev-feature/identity"
+  },
+  "require-dev": {
+  },
+  "suggest": {
+  },
+  "autoload": {
+    "psr-4": {
+      "Simplex\\Auth\\": "src"
+    }
+  }
+}
+
