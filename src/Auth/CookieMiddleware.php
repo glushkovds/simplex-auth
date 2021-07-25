@@ -12,10 +12,10 @@ class CookieMiddleware implements Handler
     /**
      * @inheritDoc
      */
-    public function handle($payload, Handler $next)
+    public function handle($payload, \Closure $next)
     {
         if ($payload) {
-            return $next->handle($payload);
+            return $next($payload);
         }
         $prefix = SF_LOCATION_SITE == SF_LOCATION ? 's' : 'a';
         $cookies = new CookieTokenBag($prefix);
@@ -25,9 +25,9 @@ class CookieMiddleware implements Handler
             $user = new User($modelAuth['user_id']);
             if ($user->getId()) {
                 $cookies->prolong();
-                return $next->handle($user);
+                return $next($user);
             }
         }
-        return $next->handle($payload);
+        return $next($payload);
     }
 }
