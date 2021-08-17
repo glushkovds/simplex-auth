@@ -1,6 +1,6 @@
 <?php
 
-namespace Sumplex\Auth\Models;
+namespace Simplex\Auth\Models;
 
 use Simplex\Core\DB\Expr;
 use Simplex\Core\ModelBase;

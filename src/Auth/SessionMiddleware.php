@@ -6,7 +6,7 @@ use Simplex\Core\Identity\Models\User;
 use Simplex\Core\Middleware\Handler;
 use Simplex\Auth\Models\UserAuth;
 
-class CookieMiddleware implements Handler
+class SessionMiddleware implements Handler
 {
 
     /**
@@ -18,13 +18,10 @@ class CookieMiddleware implements Handler
             return $next($payload);
         }
         $prefix = SF_LOCATION_SITE == SF_LOCATION ? 's' : 'a';
-        $cookies = new CookieTokenBag($prefix);
-        $token = $cookies->get();
-        $modelAuth = UserAuth::findByToken($token);
-        if ($modelAuth) {
-            $user = new User($modelAuth['user_id']);
+        $userId = $_SESSION[$prefix . '_user_id'] ?? null;
+        if ($userId) {
+            $user = new User($userId);
             if ($user->getId()) {
-                $cookies->prolong();
                 return $next($user);
             }
         }
