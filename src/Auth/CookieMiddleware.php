@@ -17,8 +17,7 @@ class CookieMiddleware implements Handler
         if ($payload) {
             return $next($payload);
         }
-        $prefix = SF_LOCATION_SITE == SF_LOCATION ? 's' : 'a';
-        $cookies = new CookieTokenBag($prefix);
+        $cookies = new CookieTokenBag(CookieTokenBag::defaultPrefix());
         $token = $cookies->get();
         $modelAuth = UserAuth::findByToken($token);
         if ($modelAuth) {

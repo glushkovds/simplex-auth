@@ -17,8 +17,7 @@ class SessionMiddleware implements Handler
         if ($payload) {
             return $next($payload);
         }
-        $prefix = SF_LOCATION_SITE == SF_LOCATION ? 's' : 'a';
-        $userId = $_SESSION[$prefix . '_user_id'] ?? null;
+        $userId = SessionStorage::get();
         if ($userId) {
             $user = new User($userId);
             if ($user->getId()) {

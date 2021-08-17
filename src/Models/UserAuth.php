@@ -5,6 +5,11 @@ namespace Simplex\Auth\Models;
 use Simplex\Core\DB\Expr;
 use Simplex\Core\ModelBase;
 
+/**
+ * Class UserAuth
+ * @package Simplex\Auth\Models
+ * @property string $token
+ */
 class UserAuth extends ModelBase
 {
 
