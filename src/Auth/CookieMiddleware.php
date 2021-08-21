@@ -19,12 +19,14 @@ class CookieMiddleware implements Handler
         }
         $cookies = new CookieTokenBag(CookieTokenBag::defaultPrefix());
         $token = $cookies->get();
-        $modelAuth = UserAuth::findByToken($token);
-        if ($modelAuth) {
-            $user = new User($modelAuth['user_id']);
-            if ($user->getId()) {
-                $cookies->prolong();
-                return $next($user);
+        if ($token) {
+            $modelAuth = UserAuth::findByToken($token);
+            if ($modelAuth) {
+                $user = new User($modelAuth['user_id']);
+                if ($user->getId()) {
+                    $cookies->prolong();
+                    return $next($user);
+                }
             }
         }
         return $next($payload);

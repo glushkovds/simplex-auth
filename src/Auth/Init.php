@@ -25,13 +25,16 @@ class Init
         static::initLegacy($user);
     }
 
-    protected static function initLegacy(User $user)
+    protected static function initLegacy(?User $user)
     {
+        Container::set('userLegacy', \Simplex\Core\User::class);
+        if (empty($user)) {
+            return;
+        }
         $userInstance = new UserInstance('', '', '', '', '');
         if ($user) {
             $userInstance->initByModel($user);
         }
         \Simplex\Core\User::login($userInstance);
-        Container::set('userLegacy', \Simplex\Core\User::class);
     }
 }
