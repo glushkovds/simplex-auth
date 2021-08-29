@@ -7,21 +7,20 @@ namespace Simplex\Auth;
 use Simplex\Auth\SignOut\CookieMiddleware;
 use Simplex\Auth\SignOut\SessionMiddleware;
 use Simplex\Core\Container;
-use Simplex\Core\Identity\Models\User;
+use Simplex\Core\Models\User;
 use Simplex\Core\Middleware\Chain;
 use Simplex\Core\UserInstance;
 
-class Init
+class Bootstrap
 {
-    public static function byMiddlewareChain(Chain $chain)
+    public static function authByMiddlewareChain(Chain $chain)
     {
         $user = $chain->process(null);
-//        var_dump($userModel);
-        Container::set('user', $user ?? new \Simplex\Core\Identity\Models\User());
+        Container::set('user', $user ?? new User());
         static::initLegacy($user);
     }
 
-    public static function byUser(User $user)
+    public static function authByUser(User $user)
     {
         Container::set('user', $user);
         static::initLegacy($user);
@@ -46,7 +45,7 @@ class Init
             new SessionMiddleware(),
             new CookieMiddleware(),
         ]))->process();
-        Container::set('user', new \Simplex\Core\Identity\Models\User());
+        Container::set('user', new User());
         Container::getUserLegacy()::logout();
     }
 }

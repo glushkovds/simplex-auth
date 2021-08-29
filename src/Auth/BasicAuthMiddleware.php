@@ -3,7 +3,7 @@
 
 namespace Simplex\Auth\Auth;
 
-use Simplex\Core\Identity\Models\User;
+use Simplex\Core\Models\User;
 use Simplex\Core\Middleware\Handler;
 
 class BasicAuthMiddleware implements Handler
