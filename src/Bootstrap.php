@@ -29,11 +29,10 @@ class Bootstrap
     protected static function initLegacy(?User $user)
     {
         Container::set('userLegacy', \Simplex\Core\User::class);
-        if (empty($user)) {
-            return;
-        }
         $userInstance = new UserInstance('', '', '', '', '');
-        $userInstance->initByModel($user);
+        if (!empty($user)) {
+            $userInstance->initByModel($user);
+        }
         \Simplex\Core\User::login($userInstance);
     }
 
