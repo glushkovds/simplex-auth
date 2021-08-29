@@ -22,7 +22,7 @@
     "ext-gd": "*",
     "ext-pdo": "*",
     "ext-json": "*",
-    "glushkovds/simplex-core": "dev-feature/identity"
+    "glushkovds/simplex-core": "*"
   },
   "require-dev": {
   },
