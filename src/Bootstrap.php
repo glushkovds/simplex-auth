@@ -37,9 +37,7 @@ class Bootstrap
             return;
         }
         $userInstance = new UserInstance('', '', '', '', '');
-        if ($user) {
-            $userInstance->initByModel($user);
-        }
+        $userInstance->initByModel($user);
         \Simplex\Core\User::login($userInstance);
     }
 
@@ -49,9 +47,7 @@ class Bootstrap
             new SessionMiddleware(),
             new CookieMiddleware(),
         ]))->process();
-        $userModelClass = get_class(Container::getUser());
-        $emptyUser = new $userModelClass();
-        Container::set('user', $emptyUser);
+        Container::set('user', null);
         Container::getUserLegacy()::logout2();
     }
 }
