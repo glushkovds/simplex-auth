@@ -38,7 +38,7 @@ class CookieTokenBag extends CookieBag
 
     public function delete()
     {
-        $this->set(null, new \DateTime());
+        $this->set('', new \DateTime());
     }
 
 

@@ -39,9 +39,9 @@ class Chain extends \Simplex\Core\Middleware\Chain
     }
 
     /**
-     * @return User
+     * @return string|User string of user model class
      */
-    public function getUserModelClass(): User
+    public function getUserModelClass()
     {
         return $this->userModelClass;
     }

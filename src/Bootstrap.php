@@ -16,7 +16,11 @@ class Bootstrap
     public static function authByMiddlewareChain(Chain $chain)
     {
         $user = $chain->process(null);
-        Container::set('user', $user ?? new ($chain->getUserModelClass())());
+        if (!$user) {
+            $userModelClass = $chain->getUserModelClass();
+            $user = new $userModelClass();
+        }
+        Container::set('user', $user);
         static::initLegacy($user);
     }
 
@@ -41,11 +45,13 @@ class Bootstrap
 
     public static function signOut()
     {
-        (new Chain([
+        (new \Simplex\Core\Middleware\Chain([
             new SessionMiddleware(),
             new CookieMiddleware(),
         ]))->process();
-        Container::set('user', new (get_class(Container::getUser()))());
-        Container::getUserLegacy()::logout();
+        $userModelClass = get_class(Container::getUser());
+        $emptyUser = new $userModelClass();
+        Container::set('user', $emptyUser);
+        Container::getUserLegacy()::logout2();
     }
 }
