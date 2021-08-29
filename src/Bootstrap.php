@@ -16,10 +16,6 @@ class Bootstrap
     public static function authByMiddlewareChain(Chain $chain)
     {
         $user = $chain->process(null);
-        if (!$user) {
-            $userModelClass = $chain->getUserModelClass();
-            $user = new $userModelClass();
-        }
         Container::set('user', $user);
         static::initLegacy($user);
     }
