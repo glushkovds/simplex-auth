@@ -4,6 +4,8 @@
 namespace Simplex\Auth;
 
 
+use Simplex\Auth\SignOut\CookieMiddleware;
+use Simplex\Auth\SignOut\SessionMiddleware;
 use Simplex\Core\Container;
 use Simplex\Core\Identity\Models\User;
 use Simplex\Core\Middleware\Chain;
@@ -36,5 +38,15 @@ class Init
             $userInstance->initByModel($user);
         }
         \Simplex\Core\User::login($userInstance);
+    }
+
+    public static function signOut()
+    {
+        (new Chain([
+            new SessionMiddleware(),
+            new CookieMiddleware(),
+        ]))->process();
+        Container::set('user', new \Simplex\Core\Identity\Models\User());
+        Container::getUserLegacy()::logout();
     }
 }
