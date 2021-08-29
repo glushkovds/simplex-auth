@@ -2,9 +2,9 @@
 
 namespace Simplex\Auth\Auth;
 
+use Simplex\Auth\SessionStorage;
 use Simplex\Core\Identity\Models\User;
 use Simplex\Core\Middleware\Handler;
-use Simplex\Auth\Models\UserAuth;
 
 class SessionMiddleware implements Handler
 {

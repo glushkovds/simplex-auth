@@ -2,6 +2,7 @@
 
 namespace Simplex\Auth\Auth;
 
+use Simplex\Auth\CookieTokenBag;
 use Simplex\Core\Identity\Models\User;
 use Simplex\Core\Middleware\Handler;
 use Simplex\Auth\Models\UserAuth;

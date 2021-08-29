@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Simplex\Auth\Auth;
+namespace Simplex\Auth;
 
 
 class SessionStorage

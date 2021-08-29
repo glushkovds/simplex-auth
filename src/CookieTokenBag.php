@@ -1,8 +1,11 @@
 <?php
 
 
-namespace Simplex\Auth\Auth;
+namespace Simplex\Auth;
 
+
+use Simplex\Core\Cookie\CookieBag;
+use Simplex\Core\Cookie\CookieItem;
 
 class CookieTokenBag extends CookieBag
 {
@@ -31,6 +34,11 @@ class CookieTokenBag extends CookieBag
     public function set($token, \DateTime $expires)
     {
         $this->cookies['token']->setValue($token)->setExpires($expires)->save();
+    }
+
+    public function delete()
+    {
+        $this->set(null, new \DateTime());
     }
 
 
