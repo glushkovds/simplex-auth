@@ -3,10 +3,7 @@
 
 namespace Simplex\Auth\Auth;
 
-use Simplex\Core\Models\User;
-use Simplex\Core\Middleware\Handler;
-
-class BasicAuthMiddleware implements Handler
+class BasicAuthMiddleware extends BaseMiddleware
 {
 
     /**
@@ -20,7 +17,7 @@ class BasicAuthMiddleware implements Handler
         $login = $_SERVER['PHP_AUTH_USER'] ?? null;
         $pass = $_SERVER['PHP_AUTH_PW'] ?? null;
         if ($login && $pass) {
-            $user = User::findOne(['login' => $login, 'password' => md5($pass)]);
+            $user = $this->userModelClass::findOne(['login' => $login, 'password' => md5($pass)]);
             if ($user) {
                 return $next($user);
             }

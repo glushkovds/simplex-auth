@@ -4,9 +4,8 @@ namespace Simplex\Auth\Auth;
 
 use Simplex\Auth\SessionStorage;
 use Simplex\Core\Models\User;
-use Simplex\Core\Middleware\Handler;
 
-class SessionMiddleware implements Handler
+class SessionMiddleware extends BaseMiddleware
 {
 
     /**
@@ -19,7 +18,8 @@ class SessionMiddleware implements Handler
         }
         $userId = SessionStorage::get();
         if ($userId) {
-            $user = new User($userId);
+            /** @var User $user */
+            $user = new $this->userModelClass($userId);
             if ($user->getId()) {
                 return $next($user);
             }

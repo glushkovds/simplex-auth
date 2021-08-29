@@ -4,11 +4,11 @@
 namespace Simplex\Auth;
 
 
+use Simplex\Auth\Auth\Chain;
 use Simplex\Auth\SignOut\CookieMiddleware;
 use Simplex\Auth\SignOut\SessionMiddleware;
 use Simplex\Core\Container;
 use Simplex\Core\Models\User;
-use Simplex\Core\Middleware\Chain;
 use Simplex\Core\UserInstance;
 
 class Bootstrap
@@ -16,7 +16,7 @@ class Bootstrap
     public static function authByMiddlewareChain(Chain $chain)
     {
         $user = $chain->process(null);
-        Container::set('user', $user ?? new User());
+        Container::set('user', $user ?? new ($chain->getUserModelClass())());
         static::initLegacy($user);
     }
 
@@ -45,7 +45,7 @@ class Bootstrap
             new SessionMiddleware(),
             new CookieMiddleware(),
         ]))->process();
-        Container::set('user', new User());
+        Container::set('user', new (get_class(Container::getUser()))());
         Container::getUserLegacy()::logout();
     }
 }

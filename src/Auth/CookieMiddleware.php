@@ -4,10 +4,9 @@ namespace Simplex\Auth\Auth;
 
 use Simplex\Auth\CookieTokenBag;
 use Simplex\Core\Models\User;
-use Simplex\Core\Middleware\Handler;
 use Simplex\Auth\Models\UserAuth;
 
-class CookieMiddleware implements Handler
+class CookieMiddleware extends BaseMiddleware
 {
 
     /**
@@ -23,7 +22,8 @@ class CookieMiddleware implements Handler
         if ($token) {
             $modelAuth = UserAuth::findByToken($token);
             if ($modelAuth) {
-                $user = new User($modelAuth['user_id']);
+                /** @var User $user */
+                $user = new $this->userModelClass($modelAuth['user_id']);
                 if ($user->getId()) {
                     $cookies->prolong();
                     return $next($user);
