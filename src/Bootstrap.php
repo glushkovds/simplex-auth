@@ -29,7 +29,11 @@ class Bootstrap
     protected static function initLegacy(?User $user)
     {
         Container::set('userLegacy', \Simplex\Core\User::class);
-        $userInstance = new UserInstance('', '', '', '', '');
+        if (SF_LOCATION_ADMIN == SF_LOCATION) {
+            $userInstance = new UserInstance('admin_user_id', 'admin_user_hash', 'hash_admin', 'cha', 'csa');
+        } else {
+            $userInstance = new UserInstance('user_id', 'user_hash', 'hash', 'ch', 'cs');
+        }
         if (!empty($user)) {
             $userInstance->initByModel($user);
         }
